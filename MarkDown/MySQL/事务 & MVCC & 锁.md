@@ -31,13 +31,13 @@ PS：AID的实现其实都是为了实现C（一致性）。
 // PS：事务级别只是数据库的标准，实现的话根据各个数据库产商自己的具体实现
 
 
-##### 读未提交 RU（Read Uncommited）
+#### 读未提交 RU（Read Uncommited）
 事务可以读取其他事务未提交的数据库操作（可以解决脏读）
 
-##### 读已提交 RC(Read Committed)
+#### 读已提交 RC(Read Committed)
 事务只能读取别的事务已提交的数据库操作（可以解决 不可重复读）
 
-##### 重复读（Repeatable read）
+#### 重复读（Repeatable read）
 
 
 | 事务隔离级别 | 脏读 | 不可重复度 | 幻读 |
@@ -47,5 +47,33 @@ PS：AID的实现其实都是为了实现C（一致性）。
 | 重复读（Repeatable read）      | √ | √ | ×（MySQL InnoDB） |
 | 串行化（serializer）           | √ | √ | √ |
 
+#### 解决并发事务的两种方式
 
-解决事务
+##### 1. LBCC（Lock Base Concurrency Control）
+
+在数据读取前，对其加锁，阻止其他事务对数据进行修改。
+
+
+
+##### 2. MVCC（Multi Vrsion Concurrency Control）
+
+生成一个数据请求时间点的一致性数据快照（Snapshot），并用这个快照来提供一定级别的（语句级别或事务级别）的一致性读取。
+
+
+
+
+
+### 5. MySQL中锁的分类
+
+#### MyISAM和InnoDB分别支持什么粒度的锁？
+
+Ⅰ. MyISAM仅支持表锁
+
+Ⅱ. InnoDB不仅支持表锁，还支持行锁（行锁包括行锁，间隙锁，邻键锁Next Key Lock）
+
+
+
+
+
+
+
